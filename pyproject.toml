@@ -100,6 +100,8 @@ file-hasher = "files.file_hasher:main"
 image-deduper = "images.image_deduper:main"
 pdf-toolbox = "pdf.pdf_toolbox:main"
 exif-manager = "images.exif_manager:main"
+photo-organizer = "images.photo_organizer:main"
+image-compare = "images.image_compare:main"
 
 [tool.setuptools]
 # Include all .py files by default

@@ -53,6 +53,8 @@ Some tools are optional (transformers, openai, streamlit). Install only what you
 - wikifacts.py: Fetch Wikipedia summaries (wikipedia lib with pywhatkit fallback).
 - image_deduper.py: Find exact/near-duplicate images via perceptual hashes; report/move/delete options.
 - exif_manager.py: Inspect/export/strip/edit EXIF (GPS, dates) with batch support.
+- photo_organizer.py: Organize photos into date folders using EXIF/mtime with rename, dedupe, and reports.
+- image_compare.py: Compute SSIM/PSNR, produce diff heatmaps and composites; batch compare folders.
 
 ### Examples
 
@@ -224,6 +226,31 @@ python image_deduper.py ./photos --threshold 6 --move-to ./dupes --dry-run
 
 # Delete exact duplicates only
 python image_deduper.py ./photos --exact --delete --yes
+```
+
+- Photo organizer:
+```bash
+# Dry-run into yyyy/mm
+python -m images.photo_organizer ./in ./photos --structure yyyy/mm --dry-run
+
+# Move and rename using EXIF first, fallback to mtime
+python -m images.photo_organizer ./in ./photos --use exif,mtime --move \
+  --name-template "{yyyy}-{mm}-{dd}_{HH}{MM}{SS}_{orig}"
+
+# Dedupe by hash and write JSON report
+python -m images.photo_organizer ./in ./photos --dedupe hash --json report.json
+```
+
+- Image compare:
+```bash
+# Single pair with diff/composite and JSON
+python -m images.image_compare a.jpg b.jpg --diff out_diff.png --composite out_side.png --json out.json
+
+# Batch by filename with CSV and diff images
+python -m images.image_compare ./setA ./setB --recursive --csv report.csv --diff-dir diffs/
+
+# Enforce SSIM threshold (exit 1 if below)
+python -m images.image_compare a.jpg b.jpg --ssim-threshold 0.95 --fail-on-below
 ```
 
 - EXIF manager:
