@@ -51,6 +51,7 @@ Some tools are optional (transformers, openai, streamlit). Install only what you
 - voice_todo.py: Capture speech via microphone and append to a tasks file.
 - watermarker.py: Add text/image watermarks with position, opacity, scaling.
 - wikifacts.py: Fetch Wikipedia summaries (wikipedia lib with pywhatkit fallback).
+- image_deduper.py: Find exact/near-duplicate images via perceptual hashes; report/move/delete options.
 
 ### Examples
 
@@ -210,6 +211,18 @@ python wikifacts.py "Python (programming language)" --lines 2
 ```bash
 python file_hasher.py ./data --algo sha256 --manifest checksums.txt --recursive --parallel
 python file_hasher.py ./data --verify checksums.txt
+```
+
+- Image deduper:
+```bash
+# Report near-duplicates
+python image_deduper.py ./photos --algo phash --threshold 8 --report dupes.csv --recursive
+
+# Move duplicates to ./dupes (dry-run first)
+python image_deduper.py ./photos --threshold 6 --move-to ./dupes --dry-run
+
+# Delete exact duplicates only
+python image_deduper.py ./photos --exact --delete --yes
 ```
 
 ### Notes

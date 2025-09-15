@@ -15,3 +15,4 @@ openpyxl>=3.1.2
 textblob>=0.18.0.post0
 flashtext>=2.7
 streamlit>=1.36.0
+imagehash>=4.3.1

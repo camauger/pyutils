@@ -97,6 +97,7 @@ voice-todo = "voice_todo:main"
 watermarker = "watermarker:main"
 wikifacts = "wikifacts:main"
 file-hasher = "file_hasher:main"
+image-deduper = "image_deduper:main"
 
 [tool.setuptools]
 # Include all .py files by default
