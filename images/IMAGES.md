@@ -195,6 +195,29 @@ Each tool supports `--log-level` and prints clear messages. Most tools can be ru
     python -m images.image_resizer in.jpg out.jpg --width 1600 --height 1200 --fit-within
     ```
 
+## image_heic_converter.py — Convert HEIC/HEIF to JPEG/PNG/WebP
+- Description: Batch-convert iPhone/HEIC photos to common formats with optional resize, quality, EXIF preservation, and auto-orientation.
+- Features:
+  - Formats: input HEIC/HEIF; output JPEG/PNG/WebP
+  - Metadata: preserve or strip EXIF; auto-orient from EXIF
+  - Quality/size: set JPEG/WebP quality; optional max dimensions
+  - Selection: `--recursive`, `--include/--exclude` globs; preserve structure
+  - Safety: dry-run, structured logging
+- Dependencies: pillow-heif, Pillow
+- Examples:
+  - Convert all HEIC to JPEG at quality 90, preserving EXIF, auto-orienting:
+    ```bash
+    python -m images.image_heic_converter ./in ./out --to jpeg --quality 90 --preserve-exif --auto-orient --recursive
+    ```
+  - Convert to WebP with max size and strip metadata:
+    ```bash
+    python -m images.image_heic_converter ./in ./out --to webp --max-width 2048 --max-height 2048 --strip-exif --recursive
+    ```
+  - Only convert *.HEIC while keeping folder structure:
+    ```bash
+    python -m images.image_heic_converter ./in ./out --to png --include "*.HEIC" --keep-structure --recursive
+    ```
+
 ## handwriter.py — Render text as handwriting-style image
 - Description: Generate handwriting-style PNG from text using `pywhatkit`.
 - Features:
