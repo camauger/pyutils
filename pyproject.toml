@@ -1,0 +1,102 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyutils"
+version = "0.1.0"
+description = "A collection of small Python CLI utilities."
+authors = [
+  { name = "Cam Auger" }
+]
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+keywords = ["cli", "utilities", "tools"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+
+# Core deps (minimal baseline used by many scripts)
+dependencies = [
+  "requests>=2.32.0",
+  "beautifulsoup4>=4.12.2",
+  "Pillow>=10.2.0",
+]
+
+[project.optional-dependencies]
+# Optional groups you can install via: pip install .[group]
+text = [
+  "textblob>=0.18.0.post0",
+  "flashtext>=2.7",
+]
+excel = [
+  "pandas>=2.2.2",
+  "openpyxl>=3.1.2",
+]
+pdf = [
+  "pdfplumber>=0.11.0",
+  "PyPDF2>=3.0.1",
+]
+nlp = [
+  "transformers>=4.40.0",
+]
+oneai = [
+  "openai>=1.30.0",
+]
+media = [
+  "rembg>=2.0.56",
+]
+audio = [
+  "SpeechRecognition>=3.10.0",
+  # one of the following may be needed per-OS
+  # "pyaudio>=0.2.14",
+  # "sounddevice>=0.4.6",
+]
+web = [
+  "pywhatkit>=5.4",
+  "wikipedia>=1.4.0",
+]
+ui = [
+  "streamlit>=1.36.0",
+]
+
+[project.scripts]
+# Map some scripts to console commands (installable entry points)
+rename-files = "rename_files:main"
+audio-speaker = "audio_speaker:main"
+blobbing = "blobbing:main"
+blobbing-more = "blobbing_more:main"
+cli-builder = "cli_builder:app"
+collections-helpers = "collections_helpers:main"
+context-manager = "context_manager:main"
+docx-creator = "docx_creator:main"
+excel-creator = "excel_creator:main"
+faker-generator = "faker_generator:main"
+flashtext-test = "flashtext_test:main"
+google-search = "google_search:main"
+handwriter = "handwriter:main"
+image-resizer = "image_resizer:main"
+mail-sender = "mail_sender:main"
+openai-api = "openai_api:main"
+password-generator = "password_generator:main"
+qrcode-generator = "qrcode_generator:main"
+pathfinder = "pathfinder:main"
+clipboard-history = "clipboard_history:main"
+pdf-text = "pdf_text:main"
+pdf-summarizer = "pdf_summarizer:main"
+photo-editor = "photo_editor:main"
+proofreader = "proofreader:main"
+remove-background = "remove_background:main"
+summarizer = "summarizer:main"
+web-summarizer = "web_summarizer:main"
+voice-todo = "voice_todo:main"
+watermarker = "watermarker:main"
+wikifacts = "wikifacts:main"
+
+[tool.setuptools]
+# Include all .py files by default
+py-modules = []
