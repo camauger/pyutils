@@ -206,6 +206,12 @@ python watermarker.py text input.jpg out.jpg --text "Demo" --anchor bottom-right
 python wikifacts.py "Python (programming language)" --lines 2
 ```
 
+- File hasher (manifest + verify):
+```bash
+python file_hasher.py ./data --algo sha256 --manifest checksums.txt --recursive --parallel
+python file_hasher.py ./data --verify checksums.txt
+```
+
 ### Notes
 - Some features require optional dependencies (transformers, openai, streamlit, pyaudio/sounddevice).
 - On Windows, install build tools for some wheels when needed.
