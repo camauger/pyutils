@@ -21,6 +21,37 @@ Some tools are optional (transformers, openai, streamlit). Install only what you
 - Most CLIs support `--log-level`: CRITICAL, ERROR, WARNING, INFO, DEBUG.
 - Many support input via flags, files, or stdin.
 
+### Scripts overview
+- audio_speaker.py: Text-to-speech from text/file/stdin with logging and fallback.
+- blobbing.py: Sentiment analysis via TextBlob; JSON output option.
+- blobbing_more.py: Transformers-based sentiment analysis; batch by lines.
+- cli_builder.py: Minimal Typer-based example CLI.
+- collections_helpers.py: Tokenize and count words; JSON or tabular output.
+- context_manager.py: Managed text file writer with append and stdin support.
+- docx_creator.py: Read paragraphs/tables, append text, and save DOCX files.
+- excel_creator.py: Inspect and modify Excel sheets (get/set cells, append rows/cols).
+- faker_generator.py: Generate fake data records (name, email, address, etc.).
+- flashtext_test.py: Benchmark regex vs FlashText keyword replacement.
+- google_search.py: Open a Google search via pywhatkit or webbrowser fallback.
+- handwriter.py: Render text to handwriting-style PNG with color control.
+- image_resizer.py: Resize images with aspect options and resampling selection.
+- mail_sender.py: Send emails via SMTP with SSL/STARTTLS and env/CLI credentials.
+- openai_api.py: Chat/completion via OpenAI (modern client + legacy fallback).
+- password_generator.py: Secure passwords with configurable char sets and policies.
+- pathfinder.py: Path utilities (info, ls, read, join) with JSON outputs.
+- pdf_text.py: Extract text from PDFs (pdfplumber → PyPDF2 fallback).
+- pdf_summarizer.py: Extract + summarize PDFs using OpenAI or Hugging Face.
+- photo_editor.py: Common image ops (crop, resize, flip, rotate, blur, text, grayscale, sharpen, merge).
+- proofreader.py: Grammar/spell correction via gingerit; optional Streamlit UI.
+- qrcode_generator.py: Create QR codes with error correction, colors, sizing.
+- remove_background.py: Remove background using rembg; PNG with alpha.
+- rename_files.py: Batch rename with filters, transforms, enumeration, collisions.
+- summarizer.py: Summarize arbitrary text via TheTextAPI or Hugging Face.
+- web_summarizer.py: Fetch a web page and summarize via HF or TheTextAPI.
+- voice_todo.py: Capture speech via microphone and append to a tasks file.
+- watermarker.py: Add text/image watermarks with position, opacity, scaling.
+- wikifacts.py: Fetch Wikipedia summaries (wikipedia lib with pywhatkit fallback).
+
 ### Examples
 
 - Rename files (dry run):
