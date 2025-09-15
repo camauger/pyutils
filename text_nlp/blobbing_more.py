@@ -103,10 +103,11 @@ def resolve_device_arg(device_pref: str) -> int:
         return -1
 
 
-def build_classifier(model_name: str, device_pref: str):
+def build_classifier(model_name: str, device_pref: str) -> Any:
     try:
         device = resolve_device_arg(device_pref)
-        return pipeline("sentiment-analysis", model=model_name, device=device)
+        # transformers' typing stubs may not accept the 'device' kw; ignore for type-checkers
+        return pipeline(task="sentiment-analysis", model=model_name, device=device)  # type: ignore[call-arg]
     except Exception as ex:  # noqa: BLE001
         raise HFAnalysisError(f"Failed to initialize pipeline: {ex}") from ex
 
