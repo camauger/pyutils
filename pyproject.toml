@@ -99,6 +99,7 @@ wikifacts = "wikifacts:main"
 file-hasher = "file_hasher:main"
 image-deduper = "image_deduper:main"
 pdf-toolbox = "pdf_toolbox:main"
+exif-manager = "exif_manager:main"
 
 [tool.setuptools]
 # Include all .py files by default

@@ -52,6 +52,7 @@ Some tools are optional (transformers, openai, streamlit). Install only what you
 - watermarker.py: Add text/image watermarks with position, opacity, scaling.
 - wikifacts.py: Fetch Wikipedia summaries (wikipedia lib with pywhatkit fallback).
 - image_deduper.py: Find exact/near-duplicate images via perceptual hashes; report/move/delete options.
+- exif_manager.py: Inspect/export/strip/edit EXIF (GPS, dates) with batch support.
 
 ### Examples
 
@@ -223,6 +224,24 @@ python image_deduper.py ./photos --threshold 6 --move-to ./dupes --dry-run
 
 # Delete exact duplicates only
 python image_deduper.py ./photos --exact --delete --yes
+```
+
+- EXIF manager:
+```bash
+# List EXIF to JSON
+python exif_manager.py ./photos --list --json --recursive
+
+# Strip all EXIF (dry run)
+python exif_manager.py ./photos --strip --recursive --dry-run
+
+# Remove only GPS
+python exif_manager.py ./photos --remove-gps --include "*.jpg" --recursive --yes
+
+# Set DateTimeOriginal from mtime
+python exif_manager.py ./photos --set-date from-mtime --include "*.jpg" --yes
+
+# Shift DateTimeOriginal by +2h -30m
+python exif_manager.py ./photos --shift-date "+2h,-30m" --include "*.jpg" --yes
 ```
 
 ### Notes
