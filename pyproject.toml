@@ -102,6 +102,7 @@ pdf-toolbox = "pdf.pdf_toolbox:main"
 exif-manager = "images.exif_manager:main"
 photo-organizer = "images.photo_organizer:main"
 image-compare = "images.image_compare:main"
+image-contact-sheet = "images.image_contact_sheet:main"
 
 [tool.setuptools]
 # Include all .py files by default

@@ -55,6 +55,7 @@ Some tools are optional (transformers, openai, streamlit). Install only what you
 - exif_manager.py: Inspect/export/strip/edit EXIF (GPS, dates) with batch support.
 - photo_organizer.py: Organize photos into date folders using EXIF/mtime with rename, dedupe, and reports.
 - image_compare.py: Compute SSIM/PSNR, produce diff heatmaps and composites; batch compare folders.
+- image_contact_sheet.py: Generate image contact sheets with grid, labels, pagination. PNG/JPEG/PDF.
 
 ### Examples
 
@@ -251,6 +252,15 @@ python -m images.image_compare ./setA ./setB --recursive --csv report.csv --diff
 
 # Enforce SSIM threshold (exit 1 if below)
 python -m images.image_compare a.jpg b.jpg --ssim-threshold 0.95 --fail-on-below
+```
+
+- Image contact sheet:
+```bash
+# Basic PNG output with labels
+python -m images.image_contact_sheet ./photos --cols 6 --rows 5 --thumb 320x240 --spacing 8 --bg "#111111" --labels --out out/contact.png
+
+# Recursive selection, include only JPGs, write multi-page PDF
+python -m images.image_contact_sheet ./photos --recursive --include "*.jpg" --cols 5 --rows 6 --thumb 256x256 --labels --out out/contacts.pdf
 ```
 
 - EXIF manager:
