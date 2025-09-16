@@ -78,7 +78,7 @@ def add_text_watermark(
     font = resolve_font(font_path, size)
     draw = ImageDraw.Draw(overlay)
     bbox = draw.textbbox((0, 0), text, font=font)
-    mw, mh = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    mw, mh = int(bbox[2] - bbox[0]), int(bbox[3] - bbox[1])
     x, y = compute_position(base.size, (mw, mh), anchor, margin)
     draw.text((x, y), text, font=font, fill=color)
     result = Image.alpha_composite(base, overlay)
