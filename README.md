@@ -56,6 +56,7 @@ Some tools are optional (transformers, openai, streamlit). Install only what you
 - photo_organizer.py: Organize photos into date folders using EXIF/mtime with rename, dedupe, and reports.
 - image_compare.py: Compute SSIM/PSNR, produce diff heatmaps and composites; batch compare folders.
 - image_contact_sheet.py: Generate image contact sheets with grid, labels, pagination. PNG/JPEG/PDF.
+- content_aware_resize.py: Content-aware image resizing (seam carving) via Sobel energy.
 
 ### Examples
 
@@ -127,6 +128,11 @@ python handwriter.py --text "Hello" --rgb 0,0,255 --output handwriting.png
 - Image resize:
 ```bash
 python image_resizer.py input.jpg output.jpg --width 800 --keep-aspect
+```
+
+- Content-aware resize (seam carving):
+```bash
+python -m images.content_aware_resize carve input.jpg output.jpg --width 800
 ```
 
 - Send mail (SSL):

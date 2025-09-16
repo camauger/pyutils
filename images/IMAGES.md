@@ -195,6 +195,27 @@ Each tool supports `--log-level` and prints clear messages. Most tools can be ru
     python -m images.image_resizer in.jpg out.jpg --width 1600 --height 1200 --fit-within
     ```
 
+## content_aware_resize.py — Content-aware resizer (seam carving)
+- Description: Resize images while preserving salient content by removing low-energy seams.
+- Features:
+  - Target a specific width and/or height (downsizing only)
+  - Energy options: auto/sobel (gradient magnitude)
+  - Typer-based CLI with logging
+- Dependencies: numpy, Pillow, scikit-image (filters, color)
+- Examples:
+  - Reduce width to 800 with default energy:
+    ```bash
+    python -m images.content_aware_resize carve input.jpg output.jpg --width 800
+    ```
+  - Reduce height to 600 with explicit energy:
+    ```bash
+    python -m images.content_aware_resize carve input.jpg output.jpg --height 600 --energy sobel
+    ```
+  - Debug logging:
+    ```bash
+    python -m images.content_aware_resize --log-level DEBUG carve input.jpg output.jpg --width 1200
+    ```
+
 ## image_heic_converter.py — Convert HEIC/HEIF to JPEG/PNG/WebP
 - Description: Batch-convert iPhone/HEIC photos to common formats with optional resize, quality, EXIF preservation, and auto-orientation.
 - Features:
