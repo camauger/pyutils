@@ -15,6 +15,7 @@ pip install -r requirements.txt
 ```
 
 Some tools are optional (transformers, openai, streamlit). Install only what you need.
+For Markdown conversion install `markdown` and either `pdfkit` (requires wkhtmltopdf) or `weasyprint`.
 
 ### Common options
 
@@ -44,6 +45,7 @@ Some tools are optional (transformers, openai, streamlit). Install only what you
 - pdf_summarizer.py: Extract + summarize PDFs using OpenAI or Hugging Face.
 - photo_editor.py: Common image ops (crop, resize, flip, rotate, blur, text, grayscale, sharpen, merge).
 - proofreader.py: Grammar/spell correction via gingerit; optional Streamlit UI.
+- text_nlp/markdown_converter.py: Convert Markdown to HTML or PDF with optional CSS injection (markdown lib with pdfkit → WeasyPrint fallback).
 - qrcode_generator.py: Create QR codes with error correction, colors, sizing.
 - remove_background.py: Remove background using rembg; PNG with alpha.
 - rename_files.py: Batch rename with filters, transforms, enumeration, collisions.
@@ -186,6 +188,11 @@ python photo_editor.py resize input.jpg out.jpg 1200 800 --keep-aspect
 - Proofreader CLI:
 ```bash
 python proofreader.py --text "This are bad sentence" --json
+```
+
+- Markdown to PDF (with optional CSS):
+```bash
+python text_nlp/markdown_converter.py --input notes.md --output notes.pdf --format pdf --css styles.css
 ```
 
 - Remove background:
