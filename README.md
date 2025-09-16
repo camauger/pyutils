@@ -22,6 +22,7 @@ Some tools are optional (transformers, openai, streamlit). Install only what you
 - Many support input via flags, files, or stdin.
 
 ### Scripts overview
+
 - audio_speaker.py: Text-to-speech from text/file/stdin with logging and fallback.
 - blobbing.py: Sentiment analysis via TextBlob; JSON output option.
 - blobbing_more.py: Transformers-based sentiment analysis; batch by lines.
