@@ -75,7 +75,7 @@ def load_css(css_path: Optional[Path]) -> Optional[str]:
     try:
         logger.debug("Loading CSS from %s", css_path)
         return css_path.read_text(encoding="utf-8")
-    except Exception as ex:  # noqa: BLE001
+    except (FileNotFoundError, PermissionError, UnicodeDecodeError) as ex:
         raise MarkdownConversionError(f"Failed to read CSS file '{css_path}': {ex}") from ex
 
 
