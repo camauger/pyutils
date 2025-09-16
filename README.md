@@ -60,6 +60,7 @@ Install only what you need. Video helpers also expect an `ffmpeg` binary on your
 - image_contact_sheet.py: Generate image contact sheets with grid, labels, pagination. PNG/JPEG/PDF.
 - video_toolbox.py: Trim clips, turn segments into GIFs, and extract frames via moviepy or ffmpeg-python.
 - content_aware_resize.py: Content-aware image resizing (seam carving) via Sobel energy.
+- web/url_status_checker.py: Concurrent URL status checker with table/JSON output.
 
 ### Examples
 
@@ -173,7 +174,10 @@ python -m video.video_toolbox to-gif input.mp4 clip.gif --start 2 --end 6 --fps 
 - Extract a frame each second:
 ```bash
 python -m video.video_toolbox extract-frames input.mp4 ./frames --fps 1
-```
+
+- Check URL statuses (JSON output):
+```bash
+python -m web.url_status_checker https://example.com https://httpbin.org/status/404 --json
 
 - Path utilities:
 ```bash
