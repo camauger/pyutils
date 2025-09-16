@@ -124,26 +124,26 @@ def write_pdf(output_path: Path, html: str) -> None:
 
     try:
         import pdfkit  # type: ignore[import-not-found]
-    except Exception as ex:  # noqa: BLE001
+    except (ImportError, ModuleNotFoundError) as ex:
         errors.append(f"pdfkit unavailable: {ex}")
     else:
         try:
             logger.debug("Generating PDF via pdfkit")
             pdfkit.from_string(html, str(output_path))
             return
-        except Exception as ex:  # noqa: BLE001
+        except (OSError, ValueError) as ex:
             errors.append(f"pdfkit failed: {ex}")
 
     try:
         from weasyprint import HTML  # type: ignore[import-not-found]
-    except Exception as ex:  # noqa: BLE001
+    except (ImportError, ModuleNotFoundError) as ex:
         errors.append(f"weasyprint unavailable: {ex}")
     else:
         try:
             logger.debug("Generating PDF via WeasyPrint")
             HTML(string=html).write_pdf(str(output_path))
             return
-        except Exception as ex:  # noqa: BLE001
+        except (OSError, ValueError) as ex:
             errors.append(f"weasyprint failed: {ex}")
 
     detail = "; ".join(errors)
