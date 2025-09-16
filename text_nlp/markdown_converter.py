@@ -82,7 +82,7 @@ def load_css(css_path: Optional[Path]) -> Optional[str]:
 def render_html(markdown_text: str, css_text: Optional[str]) -> str:
     try:
         import markdown  # type: ignore[import-not-found]
-    except Exception as ex:  # noqa: BLE001
+    except ImportError as ex:
         raise MarkdownConversionError(
             "markdown library not installed. Run: pip install markdown"
         ) from ex
