@@ -370,8 +370,6 @@ def trim_with_moviepy(
             working_clip = working_clip.set_fps(fps)
             clips_to_close.append(working_clip)
         write_kwargs = {"logger": None}
-        if fps:
-            write_kwargs["fps"] = fps
         working_clip.write_videofile(str(output_path), **write_kwargs)
     finally:
         close_clips(clips_to_close)
