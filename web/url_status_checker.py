@@ -180,7 +180,7 @@ def check_url(url: str, timeout: float) -> UrlStatusResult:
                 method=method,
                 final_url=final_url,
                 elapsed=elapsed,
-                error=last_error,
+                error=None,
             )
         except requests.RequestException as exc:
             last_error = str(exc)
