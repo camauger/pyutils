@@ -118,8 +118,8 @@ def collect_urls(args: argparse.Namespace) -> List[str]:
                 raise ValueError(f"Failed to read URLs from {path}: {exc}") from exc
             urls.extend(parse_urls_from_text(text.splitlines()))
 
-    should_read_stdin = args.stdin or not sys.stdin.isatty()
-    if should_read_stdin:
+    # Only read from stdin if explicitly requested, or if no URLs from args or files and stdin is not a TTY
+    if args.stdin or (not urls and not sys.stdin.isatty()):
         urls.extend(parse_urls_from_text(sys.stdin))
 
     filtered = [url for url in (u.strip() for u in urls) if url]
