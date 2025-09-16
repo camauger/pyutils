@@ -58,6 +58,7 @@ Some tools are optional (transformers, openai, streamlit). Install only what you
 - image_compare.py: Compute SSIM/PSNR, produce diff heatmaps and composites; batch compare folders.
 - image_contact_sheet.py: Generate image contact sheets with grid, labels, pagination. PNG/JPEG/PDF.
 - content_aware_resize.py: Content-aware image resizing (seam carving) via Sobel energy.
+- web/url_status_checker.py: Concurrent URL status checker with table/JSON output.
 
 ### Examples
 
@@ -156,6 +157,11 @@ python password_generator.py --length 20 --avoid-ambiguous --json
 - QR code:
 ```bash
 python qrcode_generator.py --data https://example.com --output qr.png
+```
+
+- Check URL statuses (JSON output):
+```bash
+python -m web.url_status_checker https://example.com https://httpbin.org/status/404 --json
 ```
 
 - Path utilities:
