@@ -52,7 +52,7 @@ def positive_int(value: str) -> int:
     except ValueError as exc:  # pragma: no cover - argparse handles messaging
         raise argparse.ArgumentTypeError("must be an integer") from exc
     if val <= 0:
-        raise argparse.ArgumentTypeError("must be >= 1")
+        raise argparse.ArgumentTypeError("must be > 0")
     return val
 
 
