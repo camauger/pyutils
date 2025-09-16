@@ -533,7 +533,7 @@ def frames_with_ffmpeg(
     run_ffmpeg(stream)
 
     # Estimate the number of frames by counting files matching the prefix
-    matching = list(sorted(output_dir.glob(f"{prefix}[0-9]*.{image_format}")))
+    matching = list(sorted(output_dir.glob(f"{prefix}[0-9]{{5}}.{image_format}")))
     return len(matching)
 
 
