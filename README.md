@@ -17,6 +17,8 @@ pip install -r requirements.txt
 Some tools are optional (transformers, openai, streamlit). Install only what you need.
 For Markdown conversion install `markdown` and either `pdfkit` (requires wkhtmltopdf) or `weasyprint`.
 
+Install only what you need. Video helpers also expect an `ffmpeg` binary on your PATH.
+
 ### Common options
 
 - Most CLIs support `--log-level`: CRITICAL, ERROR, WARNING, INFO, DEBUG.
@@ -59,7 +61,9 @@ For Markdown conversion install `markdown` and either `pdfkit` (requires wkhtmlt
 - photo_organizer.py: Organize photos into date folders using EXIF/mtime with rename, dedupe, and reports.
 - image_compare.py: Compute SSIM/PSNR, produce diff heatmaps and composites; batch compare folders.
 - image_contact_sheet.py: Generate image contact sheets with grid, labels, pagination. PNG/JPEG/PDF.
+- video_toolbox.py: Trim clips, turn segments into GIFs, and extract frames via moviepy or ffmpeg-python.
 - content_aware_resize.py: Content-aware image resizing (seam carving) via Sobel energy.
+- web/url_status_checker.py: Concurrent URL status checker with table/JSON output.
 
 ### Examples
 
@@ -159,6 +163,24 @@ python password_generator.py --length 20 --avoid-ambiguous --json
 ```bash
 python qrcode_generator.py --data https://example.com --output qr.png
 ```
+
+- Trim a clip segment:
+```bash
+python -m video.video_toolbox trim input.mp4 output.mp4 --start 00:00:05 --duration 3
+```
+
+- Convert part of a clip to a GIF:
+```bash
+python -m video.video_toolbox to-gif input.mp4 clip.gif --start 2 --end 6 --fps 12
+```
+
+- Extract a frame each second:
+```bash
+python -m video.video_toolbox extract-frames input.mp4 ./frames --fps 1
+
+- Check URL statuses (JSON output):
+```bash
+python -m web.url_status_checker https://example.com https://httpbin.org/status/404 --json
 
 - Path utilities:
 ```bash
