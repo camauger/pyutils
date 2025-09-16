@@ -59,7 +59,7 @@ def read_markdown(input_path: Optional[Path]) -> str:
         try:
             logger.debug("Reading Markdown from %s", input_path)
             return input_path.read_text(encoding="utf-8")
-        except Exception as ex:  # noqa: BLE001
+        except (FileNotFoundError, PermissionError, UnicodeDecodeError) as ex:
             raise MarkdownConversionError(
                 f"Failed to read Markdown file '{input_path}': {ex}"
             ) from ex
