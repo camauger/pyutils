@@ -113,7 +113,7 @@ def write_html(output_path: Path, html: str) -> None:
             output_path.parent.mkdir(parents=True, exist_ok=True)
         logger.debug("Writing HTML output to %s", output_path)
         output_path.write_text(html, encoding="utf-8")
-    except Exception as ex:  # noqa: BLE001
+    except OSError as ex:
         raise MarkdownConversionError(f"Failed to write HTML file '{output_path}': {ex}") from ex
 
 
