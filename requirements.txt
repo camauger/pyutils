@@ -24,3 +24,4 @@ onnxruntime>=1.17.0
 pillow-heif>=0.17.0
 python-docx>=0.8.11
 typer>=0.12.5
+schedule>=1.2.0
