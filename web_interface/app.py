@@ -1,0 +1,188 @@
+"""Flask web interface for browsing pyutils tools."""
+
+import json
+import logging
+import os
+from pathlib import Path
+from typing import List, Dict
+
+from flask import Flask, render_template, jsonify, request, send_from_directory
+
+from tool_indexer import ToolIndexer
+
+app = Flask(__name__)
+logger = logging.getLogger(__name__)
+
+# Configuration
+ROOT_DIR = Path(__file__).parent.parent
+INDEX_FILE = Path(__file__).parent / 'tool_index.json'
+
+# Load or create tool index
+tools_data = []
+
+
+def load_tools_index():
+    """Load tools index from JSON or create if missing."""
+    global tools_data
+
+    if not INDEX_FILE.exists():
+        logger.info("Index not found, creating...")
+        indexer = ToolIndexer(ROOT_DIR)
+        indexer.index_all_tools()
+        indexer.save_index()
+
+    with open(INDEX_FILE, 'r', encoding='utf-8') as f:
+        tools_data = json.load(f)
+
+    logger.info(f"Loaded {len(tools_data)} tools")
+    return tools_data
+
+
+@app.route('/')
+def index():
+    """Main page."""
+    return render_template('index.html')
+
+
+@app.route('/api/tools')
+def get_tools():
+    """Get all tools or search."""
+    category = request.args.get('category', '')
+    search = request.args.get('search', '').lower()
+
+    filtered_tools = tools_data
+
+    # Filter by category
+    if category and category != 'all':
+        filtered_tools = [t for t in filtered_tools if t['category'] == category]
+
+    # Search in name, description, and dependencies
+    if search:
+        filtered_tools = [
+            t for t in filtered_tools
+            if search in t['name'].lower() or
+               search in t.get('description', '').lower() or
+               any(search in dep.lower() for dep in t.get('dependencies', []))
+        ]
+
+    return jsonify(filtered_tools)
+
+
+@app.route('/api/tool/<category>/<tool_name>')
+def get_tool_detail(category, tool_name):
+    """Get detailed information about a specific tool."""
+    tool = next(
+        (t for t in tools_data if t['category'] == category and t['name'] == tool_name),
+        None
+    )
+
+    if not tool:
+        return jsonify({'error': 'Tool not found'}), 404
+
+    # Read the actual source code
+    tool_file = ROOT_DIR / tool['file_path']
+    source_code = ""
+    if tool_file.exists():
+        with open(tool_file, 'r', encoding='utf-8') as f:
+            source_code = f.read()
+
+    # Try to find examples from README
+    examples = extract_examples_for_tool(tool_name)
+
+    return jsonify({
+        **tool,
+        'source_code': source_code,
+        'examples': examples
+    })
+
+
+def extract_examples_for_tool(tool_name: str) -> List[str]:
+    """Extract usage examples for a tool from README."""
+    readme_path = ROOT_DIR / 'README.md'
+    if not readme_path.exists():
+        return []
+
+    examples = []
+    try:
+        with open(readme_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # Look for code blocks that mention the tool
+        in_code_block = False
+        current_block = []
+
+        for line in content.split('\n'):
+            if line.startswith('```'):
+                if in_code_block:
+                    block_text = '\n'.join(current_block)
+                    if tool_name in block_text:
+                        examples.append(block_text.strip())
+                    current_block = []
+                in_code_block = not in_code_block
+            elif in_code_block:
+                current_block.append(line)
+
+    except Exception as e:
+        logger.error(f"Error extracting examples: {e}")
+
+    return examples
+
+
+@app.route('/api/categories')
+def get_categories():
+    """Get list of all categories with counts."""
+    categories = {}
+    for tool in tools_data:
+        cat = tool['category']
+        categories[cat] = categories.get(cat, 0) + 1
+
+    return jsonify(categories)
+
+
+@app.route('/api/stats')
+def get_stats():
+    """Get overall statistics."""
+    stats = {
+        'total_tools': len(tools_data),
+        'categories': len(set(t['category'] for t in tools_data)),
+        'category_breakdown': {}
+    }
+
+    for tool in tools_data:
+        cat = tool['category']
+        stats['category_breakdown'][cat] = stats['category_breakdown'].get(cat, 0) + 1
+
+    return jsonify(stats)
+
+
+@app.route('/api/refresh')
+def refresh_index():
+    """Refresh the tool index."""
+    indexer = ToolIndexer(ROOT_DIR)
+    indexer.index_all_tools()
+    indexer.save_index()
+
+    global tools_data
+    tools_data = indexer.tools
+
+    return jsonify({
+        'status': 'success',
+        'tools_indexed': len(tools_data)
+    })
+
+
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+
+    # Load tools on startup
+    load_tools_index()
+
+    # Run Flask app
+    print("\n" + "="*60)
+    print("🔧 PyUtils Tool Browser")
+    print("="*60)
+    print(f"📊 Loaded {len(tools_data)} tools")
+    print(f"🌐 Starting server at http://localhost:5000")
+    print("="*60 + "\n")
+
+    app.run(debug=True, host='0.0.0.0', port=5000)

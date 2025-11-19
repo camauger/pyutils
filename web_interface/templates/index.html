@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyUtils Tool Browser</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .controls {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        input[type="search"] {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input[type="search"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        select {
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            border-color: #667eea;
+        }
+
+        .tool-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .tool-name {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #333;
+            font-family: 'Courier New', monospace;
+        }
+
+        .category-badge {
+            background: #f0f0f0;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .tool-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            min-height: 50px;
+        }
+
+        .tool-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .dependency-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 900px;
+            margin: 50px auto;
+            border-radius: 15px;
+            padding: 40px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 35px;
+            cursor: pointer;
+            color: #999;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .modal h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .modal-section {
+            margin-bottom: 30px;
+        }
+
+        .modal-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .example-block {
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .no-tools {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-tools h2 {
+            color: #666;
+            font-size: 1.8em;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .modal-content {
+                margin: 20px;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 PyUtils Tool Browser</h1>
+            <p class="subtitle">Search and explore your Python CLI utilities</p>
+        </header>
+
+        <div class="controls">
+            <div class="search-box">
+                <input type="search" id="searchInput" placeholder="Search tools by name, description, or dependency...">
+                <select id="categoryFilter">
+                    <option value="all">All Categories</option>
+                </select>
+                <button class="refresh-btn" onclick="refreshIndex()">↻ Refresh Index</button>
+            </div>
+            <div class="stats" id="stats"></div>
+        </div>
+
+        <div id="toolsContainer">
+            <div class="loading">Loading tools...</div>
+        </div>
+
+        <div id="toolModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allTools = [];
+        let categories = {};
+
+        // Load tools on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCategories();
+            loadTools();
+
+            // Search and filter handlers
+            document.getElementById('searchInput').addEventListener('input', filterTools);
+            document.getElementById('categoryFilter').addEventListener('change', filterTools);
+
+            // Close modal on outside click
+            document.getElementById('toolModal').addEventListener('click', (e) => {
+                if (e.target.id === 'toolModal') closeModal();
+            });
+        });
+
+        async function loadCategories() {
+            try {
+                const response = await fetch('/api/categories');
+                categories = await response.json();
+
+                const select = document.getElementById('categoryFilter');
+                Object.keys(categories).sort().forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat;
+                    option.textContent = `${cat} (${categories[cat]})`;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        }
+
+        async function loadTools() {
+            try {
+                const response = await fetch('/api/tools');
+                allTools = await response.json();
+                displayTools(allTools);
+                updateStats();
+            } catch (error) {
+                console.error('Error loading tools:', error);
+                document.getElementById('toolsContainer').innerHTML = `
+                    <div class="no-tools">
+                        <h2>Error loading tools</h2>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function filterTools() {
+            const search = document.getElementById('searchInput').value;
+            const category = document.getElementById('categoryFilter').value;
+
+            const params = new URLSearchParams();
+            if (search) params.append('search', search);
+            if (category !== 'all') params.append('category', category);
+
+            fetch(`/api/tools?${params}`)
+                .then(r => r.json())
+                .then(tools => displayTools(tools))
+                .catch(error => console.error('Error filtering tools:', error));
+        }
+
+        function displayTools(tools) {
+            const container = document.getElementById('toolsContainer');
+
+            if (tools.length === 0) {
+                container.innerHTML = `
+                    <div class="no-tools">
+                        <h2>No tools found</h2>
+                        <p>Try adjusting your search or filter</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const grid = document.createElement('div');
+            grid.className = 'tools-grid';
+
+            tools.forEach(tool => {
+                const card = createToolCard(tool);
+                grid.appendChild(card);
+            });
+
+            container.innerHTML = '';
+            container.appendChild(grid);
+        }
+
+        function createToolCard(tool) {
+            const card = document.createElement('div');
+            card.className = 'tool-card';
+            card.onclick = () => showToolDetail(tool);
+
+            const description = tool.description || 'No description available';
+            const shortDesc = description.length > 150 ? description.substring(0, 150) + '...' : description;
+
+            card.innerHTML = `
+                <div class="tool-header">
+                    <div class="tool-name">${tool.name}</div>
+                    <div class="category-badge">${tool.category}</div>
+                </div>
+                <div class="tool-description">${shortDesc}</div>
+                ${tool.dependencies && tool.dependencies.length > 0 ? `
+                    <div class="tool-meta">
+                        ${tool.dependencies.map(dep => `<span class="dependency-tag">${dep}</span>`).join('')}
+                    </div>
+                ` : ''}
+            `;
+
+            return card;
+        }
+
+        async function showToolDetail(tool) {
+            try {
+                const response = await fetch(`/api/tool/${tool.category}/${tool.name}`);
+                const detailData = await response.json();
+
+                const modal = document.getElementById('toolModal');
+                const modalBody = document.getElementById('modalBody');
+
+                modalBody.innerHTML = `
+                    <h2>${detailData.name}</h2>
+                    <div class="category-badge">${detailData.category}</div>
+
+                    <div class="modal-section">
+                        <h3>Description</h3>
+                        <p>${detailData.description || 'No description available'}</p>
+                    </div>
+
+                    ${detailData.commands && detailData.commands.length > 0 ? `
+                        <div class="modal-section">
+                            <h3>Commands</h3>
+                            ${detailData.commands.map(cmd => `
+                                <div class="example-block">
+                                    <strong>${cmd.name}()</strong>
+                                    ${cmd.docstring ? `<p>${cmd.docstring}</p>` : ''}
+                                    ${cmd.args && cmd.args.length > 0 ? `
+                                        <p><em>Arguments:</em> ${cmd.args.map(a => `${a.name}${a.type ? `: ${a.type}` : ''}`).join(', ')}</p>
+                                    ` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+
+                    ${detailData.examples && detailData.examples.length > 0 ? `
+                        <div class="modal-section">
+                            <h3>Usage Examples</h3>
+                            ${detailData.examples.map(ex => `
+                                <div class="code-block">${escapeHtml(ex)}</div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+
+                    ${detailData.dependencies && detailData.dependencies.length > 0 ? `
+                        <div class="modal-section">
+                            <h3>Dependencies</h3>
+                            <div class="tool-meta">
+                                ${detailData.dependencies.map(dep => `<span class="dependency-tag">${dep}</span>`).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <div class="modal-section">
+                        <h3>File Location</h3>
+                        <div class="code-block">${detailData.file_path}</div>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3>Run Command</h3>
+                        <div class="code-block">python -m ${detailData.module_path} --help</div>
+                    </div>
+                `;
+
+                modal.style.display = 'block';
+            } catch (error) {
+                console.error('Error loading tool details:', error);
+                alert('Error loading tool details');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('toolModal').style.display = 'none';
+        }
+
+        function updateStats() {
+            const statsDiv = document.getElementById('stats');
+            const totalTools = allTools.length;
+            const totalCategories = new Set(allTools.map(t => t.category)).size;
+
+            statsDiv.innerHTML = `
+                <span class="stat-badge">📊 ${totalTools} Tools</span>
+                <span class="stat-badge">📁 ${totalCategories} Categories</span>
+            `;
+        }
+
+        async function refreshIndex() {
+            if (!confirm('Refresh the tool index? This will rescan all Python files.')) return;
+
+            try {
+                const response = await fetch('/api/refresh');
+                const result = await response.json();
+
+                alert(`Index refreshed! Found ${result.tools_indexed} tools.`);
+                location.reload();
+            } catch (error) {
+                console.error('Error refreshing index:', error);
+                alert('Error refreshing index');
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+            if (e.key === '/' && e.target.tagName !== 'INPUT') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+        });
+    </script>
+</body>
+</html>
