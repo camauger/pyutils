@@ -3,6 +3,8 @@
 import json
 import logging
 import os
+import subprocess
+import shlex
 from pathlib import Path
 from typing import List, Dict
 
@@ -169,6 +171,68 @@ def refresh_index():
         'status': 'success',
         'tools_indexed': len(tools_data)
     })
+
+
+@app.route('/api/execute', methods=['POST'])
+def execute_tool():
+    """Execute a tool with given arguments."""
+    try:
+        data = request.get_json()
+        module_path = data.get('module', '')
+        args_str = data.get('args', '')
+
+        if not module_path:
+            return jsonify({'error': 'Module path required', 'success': False}), 400
+
+        # Build the command
+        cmd = ['python', '-m', module_path]
+
+        # Parse and add arguments safely
+        if args_str:
+            # Split args by lines or spaces, filter empty strings
+            args_lines = [line.strip() for line in args_str.split('\n') if line.strip()]
+            for line in args_lines:
+                # Use shlex to properly parse arguments
+                try:
+                    parsed_args = shlex.split(line)
+                    cmd.extend(parsed_args)
+                except ValueError:
+                    # If shlex fails, just split on spaces
+                    cmd.extend(line.split())
+
+        logger.info(f"Executing: {' '.join(cmd)}")
+
+        # Execute with timeout
+        try:
+            result = subprocess.run(
+                cmd,
+                cwd=ROOT_DIR,
+                capture_output=True,
+                text=True,
+                timeout=30  # 30 second timeout
+            )
+
+            return jsonify({
+                'success': result.returncode == 0,
+                'exit_code': result.returncode,
+                'output': result.stdout,
+                'error': result.stderr
+            })
+
+        except subprocess.TimeoutExpired:
+            return jsonify({
+                'success': False,
+                'exit_code': -1,
+                'error': 'Command timed out after 30 seconds'
+            })
+
+    except Exception as e:
+        logger.error(f"Execution error: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'exit_code': -1
+        }), 500
 
 
 if __name__ == '__main__':
