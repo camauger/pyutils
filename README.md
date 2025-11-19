@@ -19,6 +19,25 @@ For Markdown conversion install `markdown` and either `pdfkit` (requires wkhtmlt
 
 Install only what you need. Video helpers also expect an `ffmpeg` binary on your PATH.
 
+### Web Interface
+
+Browse and search all your tools with the built-in web interface:
+
+```bash
+cd web_interface
+pip install -r requirements.txt
+python app.py
+# Navigate to http://localhost:5000
+```
+
+Features:
+- 🔍 Full-text search across all tools
+- 📁 Filter by category (images, pdf, video, etc.)
+- 📊 View detailed tool information, commands, and usage examples
+- 🔄 Auto-indexing of your entire codebase
+
+See `web_interface/README.md` for more details.
+
 ### Common options
 
 - Most CLIs support `--log-level`: CRITICAL, ERROR, WARNING, INFO, DEBUG.

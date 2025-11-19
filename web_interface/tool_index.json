@@ -1,0 +1,814 @@
+[
+  {
+    "name": "audio_speaker",
+    "category": "audio",
+    "file_path": "audio/audio_speaker.py",
+    "description": "Audio speaker utility using pywhatkit TTS.\n\nProvides a simple CLI to speak text from a string, a file, or stdin.\n\nExamples:\n  - Speak a short text:\n    python audio_speaker.py --text \"Hello there!\"\n\n  - Speak content from a file:\n    python audio_speaker.py --file notes.txt\n\n  - Pipe text via stdin:\n    echo \"Hello\" | python audio_speaker.py",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "audio.audio_speaker"
+  },
+  {
+    "name": "voice_todo",
+    "category": "audio",
+    "file_path": "audio/voice_todo.py",
+    "description": "Voice to-do capture CLI using SpeechRecognition with logging.\n\nInstall: pip install SpeechRecognition pyaudio (or sounddevice) depending on OS.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "audio.voice_todo"
+  },
+  {
+    "name": "clean_rename_bulk",
+    "category": "bulk",
+    "file_path": "bulk/clean_rename_bulk.py",
+    "description": "Clean Rename Bulk",
+    "commands": [],
+    "dependencies": [],
+    "module_path": "bulk.clean_rename_bulk"
+  },
+  {
+    "name": "faker_generator",
+    "category": "data",
+    "file_path": "data/faker_generator.py",
+    "description": "Faker-based data generator with CLI options.\n\nGenerate fake records with selectable fields, locale, seed, and JSON output.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "data.faker_generator"
+  },
+  {
+    "name": "rename_files",
+    "category": "files",
+    "file_path": "files/rename_files.py",
+    "description": "rename_files.py\n\nA flexible CLI tool to batch-rename files in a directory.\n\nFeatures:\n- Prefix/suffix\n- Find/replace and regex substitutions\n- Case transforms (lower/upper/title)\n- Enumeration with padding and sorting\n- Custom templates with tokens: {n}, {stem}, {ext}, {parent}\n- Include/exclude globs, extension filters, recursive mode\n- Dry-run preview\n- Collision handling: skip, overwrite, number, error\n\nExamples:\n  - Preview adding a prefix to all .jpg files:\n    python rename_files.py ./photos --include \"*.jpg\" --prefix \"vacation_\" --dry-run\n\n  - Replace spaces with underscores, recursively:\n    python rename_files.py . --recursive --find \" \" --replace-with \"_\"\n\n  - Regex rename: remove digits at end of stem:\n    python rename_files.py . --regex \"(.*?)(\\d+)$\" --regex-repl \"\\1\" --dry-run\n\n  - Enumerate with padding and template:\n    python rename_files.py ./docs --include \"*.pdf\" --enumerate --pad 3 --template \"{n}_{stem}{ext}\"\n\n  - Change extension and lowercase names:\n    python rename_files.py ./audio --include \"*.WAV\" --lower --new-ext .wav\n\nNotes:\n- On Windows, invalid filename characters are sanitized by default.\n\nRename to a fixed base name with numbering\nUse --enumerate with a --template:\nKeep original extensions:\nDrop extensions:\nForce a specific extension (e.g., .jpg):\nNotes:\n{n} is the counter; --start sets the first number; --pad controls zero-padding (use 1 for no leading zeros).\nAdd --recursive if files are in subfolders.\nUse --sort mtime to number by modified time instead of name.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": "CLI entrypoint.",
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "files.rename_files"
+  },
+  {
+    "name": "clipboard_history",
+    "category": "files",
+    "file_path": "files/clipboard_history.py",
+    "description": "Clipboard monitor CLI: log changes with interval, timestamps, and logging.\n\nRequires `pyperclip` for cross-platform clipboard access.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "files.clipboard_history"
+  },
+  {
+    "name": "context_manager",
+    "category": "files",
+    "file_path": "files/context_manager.py",
+    "description": "Typed file context manager with logging and a small CLI demo.\n\nEven though Python provides `open` as a context manager, this example shows\nhow to build a custom context manager using `@contextmanager` to centralize\ndefaults (like UTF-8 encoding) and cross-cutting concerns (e.g., logging).",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "files.context_manager"
+  },
+  {
+    "name": "file_hasher",
+    "category": "files",
+    "file_path": "files/file_hasher.py",
+    "description": "File hasher CLI: generate and verify checksum manifests.\n\nFeatures:\n- Recursively hash files (SHA256 by default; supports sha512, sha1, md5)\n- Include/exclude globs; follow or ignore symlinks\n- Output to manifest file (text or JSON) or stdout\n- Verify mode reads manifest and checks current files\n- Optional parallel hashing",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "files.file_hasher"
+  },
+  {
+    "name": "pathfinder",
+    "category": "files",
+    "file_path": "files/pathfinder.py",
+    "description": "Path utilities CLI: info, list, read, and join with logging.\n\nExamples:\n  - Info: python pathfinder.py info ./some/path\n  - List: python pathfinder.py ls . --recursive --glob \"*.py\" --json\n  - Read: python pathfinder.py read ./README.md\n  - Join: python pathfinder.py join /base dir file.txt",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "files.pathfinder"
+  },
+  {
+    "name": "watermarker",
+    "category": "images",
+    "file_path": "images/watermarker.py",
+    "description": "Watermarker CLI using Pillow with text/image options and logging.\n\nInstall Pillow: pip install Pillow",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "Pillow"
+    ],
+    "module_path": "images.watermarker"
+  },
+  {
+    "name": "image_heic_converter",
+    "category": "images",
+    "file_path": "images/image_heic_converter.py",
+    "description": "HEIC/HEIF converter CLI: convert to JPEG/PNG/WebP with options.\n\nDependencies:\n- pillow-heif (registers HEIF opener for Pillow)\n- Pillow\n\nExamples:\n- Convert all HEIC to JPEG @ quality 90, preserve EXIF, auto-orient:\n  python -m images.image_heic_converter ./in ./out --to jpeg --quality 90 --preserve-exif --recursive\n\n- Convert to WebP with max size 2048x2048 and strip metadata:\n  python -m images.image_heic_converter ./in ./out --to webp --max-width 2048 --max-height 2048 --strip-exif --recursive\n\n- Only convert matching pattern, keep structure:\n  python -m images.image_heic_converter ./in ./out --to png --include \"*.HEIC\" --recursive",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "Pillow"
+    ],
+    "module_path": "images.image_heic_converter"
+  },
+  {
+    "name": "image_deduper",
+    "category": "images",
+    "file_path": "images/image_deduper.py",
+    "description": "Image deduper CLI using perceptual hashes (aHash/dHash/pHash/wHash).\n\nPurpose\n-------\nFind exact and near-duplicate images in a directory tree using perceptual\nhashing. Optionally generate a CSV/JSON report, move duplicates to a\nquarantine folder, or delete them (with safety flags and dry-run).\n\nKey features\n------------\n- Algorithms: aHash, dHash, pHash, wHash (via imagehash)\n- Adjustable Hamming distance threshold for near-duplicates\n- Include/exclude globs, recursive walking, follow symlinks\n- Exact duplicate detection via cryptographic hash (SHA256)\n- Group duplicates by a representative image; preserve first occurrence\n- Actions: report (CSV/JSON), move --move-to, delete --delete (requires --yes)\n- Dry-run support for safety; structured logging throughout\n\nDependencies\n------------\n- Pillow\n- imagehash\n\nInstall extras (if using pyproject): pip install .[media]\nOr directly: pip install Pillow imagehash\n\nUsage examples\n--------------\n- Report near-duplicates (threshold=8) to CSV:\n  python image_deduper.py ./photos --algo phash --threshold 8 --report dupes.csv --recursive\n\n- Move near-duplicates to quarantine (dry-run first):\n  python image_deduper.py ./photos --threshold 6 --move-to ./dupes --dry-run\n\n- Delete exact duplicates only (no near-dup logic):\n  python image_deduper.py ./photos --exact --delete --yes",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "Pillow"
+    ],
+    "module_path": "images.image_deduper"
+  },
+  {
+    "name": "exif_manager",
+    "category": "images",
+    "file_path": "images/exif_manager.py",
+    "description": "EXIF manager CLI: inspect, export, strip, and edit image metadata.\n\nCapabilities\n------------\n- List EXIF fields and export as JSON/CSV\n- Strip all EXIF or remove only GPS data\n- Set DateTimeOriginal from file mtime or a specific date\n- Shift DateTimeOriginal by relative offsets (+/- days/hours/minutes)\n- Batch over folders with include/exclude globs, recursive walking, dry-run\n\nDependencies\n------------\n- Pillow\n- piexif\n\nInstall: pip install Pillow piexif\n\nExamples\n--------\n- List EXIF to JSON recursively:\n  python exif_manager.py ./photos --list --json --recursive\n\n- Strip all EXIF (dry-run first):\n  python exif_manager.py ./photos --strip --recursive --dry-run\n\n- Remove GPS only:\n  python exif_manager.py ./photos --remove-gps --include \"*.jpg\" --recursive\n\n- Set date from file mtime:\n  python exif_manager.py ./photos --set-date from-mtime --include \"*.jpg\"\n\n- Shift date by +2h -30m:\n  python exif_manager.py ./photos --shift-date \"+2h,-30m\" --include \"*.jpg\"",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "Pillow"
+    ],
+    "module_path": "images.exif_manager"
+  },
+  {
+    "name": "content_aware_resize",
+    "category": "images",
+    "file_path": "images/content_aware_resize.py",
+    "description": "Content-aware image resizing (seam carving) with a Typer CLI.\n\nDepends on scikit-image and Pillow.\n\nExamples:\n  python -m images.content_aware_resize input.jpg output.jpg --width 800\n  python -m images.content_aware_resize input.jpg output.jpg --height 600\n  python -m images.content_aware_resize input.jpg output.jpg --width 800 --energy sobel",
+    "commands": [
+      {
+        "name": "carve",
+        "docstring": "Content-aware resize the image to the target width/height.\n\nOnly downsizing is supported for now (seam removal).",
+        "args": [
+          {
+            "name": "input",
+            "type": "Path"
+          },
+          {
+            "name": "output",
+            "type": "Path"
+          },
+          {
+            "name": "width",
+            "type": "Optional[int]"
+          },
+          {
+            "name": "height",
+            "type": "Optional[int]"
+          },
+          {
+            "name": "energy",
+            "type": "str"
+          }
+        ]
+      }
+    ],
+    "dependencies": [
+      "typer",
+      "Pillow"
+    ],
+    "module_path": "images.content_aware_resize"
+  },
+  {
+    "name": "handwriter",
+    "category": "images",
+    "file_path": "images/handwriter.py",
+    "description": "Convert text to a handwriting-style image using pywhatkit.\n\nCLI supports input via --text, --file, or stdin, with configurable RGB color\nand output path. Falls back gracefully if the backend is unavailable.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "images.handwriter"
+  },
+  {
+    "name": "remove_background",
+    "category": "images",
+    "file_path": "images/remove_background.py",
+    "description": "Remove image background via rembg with a typed CLI and logging.\n\nInstall: pip install rembg Pillow",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "Pillow"
+    ],
+    "module_path": "images.remove_background"
+  },
+  {
+    "name": "image_resizer",
+    "category": "images",
+    "file_path": "images/image_resizer.py",
+    "description": "Image resizer CLI with aspect ratio options and logging.\n\nRequires Pillow: pip install Pillow",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "Pillow"
+    ],
+    "module_path": "images.image_resizer"
+  },
+  {
+    "name": "photo_organizer",
+    "category": "images",
+    "file_path": "images/photo_organizer.py",
+    "description": "Photo organizer CLI: sort images into date folders with rename & dedupe.\n\nFeatures\n--------\n- Read date from EXIF DateTimeOriginal (fallback to file mtime)\n- Organize into folder structures: yyyy/mm, yyyy/mm/dd, custom tokens\n- Rename files using templates with tokens {yyyy},{mm},{dd},{HH},{MM},{SS},{orig},{hash}\n- Copy or move files; dry-run support; JSON/CSV report of actions\n- Dedupe by SHA256 (keep first) or by name; conflict resolution with suffixing\n- Include/exclude globs; recursive traversal\n\nDependencies\n------------\n- Pillow\n- piexif (optional, for EXIF dates)\n\nExamples\n--------\n- Dry-run organize into yyyy/mm:\n  python -m images.photo_organizer ./in ./photos --structure yyyy/mm --dry-run\n\n- Use EXIF first, fallback to mtime; move and rename:\n  python -m images.photo_organizer ./in ./photos --use exif,mtime --move     --name-template \"{yyyy}-{mm}-{dd}_{HH}{MM}{SS}_{orig}\"\n\n- Dedupe by SHA256 and keep first, generating JSON report:\n  python -m images.photo_organizer ./in ./photos --dedupe hash --json report.json",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "Pillow"
+    ],
+    "module_path": "images.photo_organizer"
+  },
+  {
+    "name": "image_contact_sheet",
+    "category": "images",
+    "file_path": "images/image_contact_sheet.py",
+    "description": "Contact sheet generator CLI.\n\nCreate contact sheets from a folder of images.\n\nFeatures\n- Grid layout with configurable columns/rows\n- Thumbnail size, spacing, margins, background color\n- Optional filename labels\n- Recursive folder scan with include/exclude globs\n- Outputs PNG/JPEG pages or a single PDF\n\nExamples\n- Basic PNG page(s):\n  python -m images.image_contact_sheet ./photos --cols 6 --rows 5 --thumb 320x240 --spacing 8 --bg \"#111111\" --labels --out out/contact.png\n\n- Multipage PDF with recursion and includes:\n  python -m images.image_contact_sheet ./photos --recursive --include \"*.jpg\" --cols 5 --rows 6 --thumb 256x256 --labels --out out/contacts.pdf",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "Pillow"
+    ],
+    "module_path": "images.image_contact_sheet"
+  },
+  {
+    "name": "photo_editor",
+    "category": "images",
+    "file_path": "images/photo_editor.py",
+    "description": "Photo editor CLI built on Pillow with logging and safe operations.\n\nInstall Pillow: pip install Pillow",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "Pillow"
+    ],
+    "module_path": "images.photo_editor"
+  },
+  {
+    "name": "image_compare",
+    "category": "images",
+    "file_path": "images/image_compare.py",
+    "description": "Image compare CLI: SSIM/PSNR metrics, diff heatmaps, and batch comparison.\n\nFeatures\n--------\n- Compare two images or two folders (match by filename)\n- Metrics: SSIM (Structural Similarity), PSNR\n- Output colored difference heatmap and side-by-side composite\n- Threshold-based pass/fail, JSON/CSV reporting\n- Recursive folder mode with include/exclude globs\n\nDependencies\n------------\n- numpy\n- Pillow\n- scikit-image\n\nExamples\n--------\n- Single pair with diff and JSON report:\n  python -m images.image_compare a.jpg b.jpg --diff out_diff.png --composite out_side.png --json out.json\n\n- Batch by matching names (recursive), CSV report:\n  python -m images.image_compare ./setA ./setB --recursive --csv report.csv --diff-dir diffs/\n\n- Enforce SSIM threshold:\n  python -m images.image_compare a.jpg b.jpg --ssim-threshold 0.95 --fail-on-below",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "Pillow"
+    ],
+    "module_path": "images.image_compare"
+  },
+  {
+    "name": "docx_creator",
+    "category": "office",
+    "file_path": "office/docx_creator.py",
+    "description": "DOCX utility: read paragraphs/tables and optionally append text via CLI.\n\nRequires `python-docx` (install with: pip install python-docx).",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "office.docx_creator"
+  },
+  {
+    "name": "excel_creator",
+    "category": "office",
+    "file_path": "office/excel_creator.py",
+    "description": "Excel utility: inspect and modify sheets via a simple CLI.\n\nRequires `pandas` (and `openpyxl` for .xlsx I/O):\n    pip install pandas openpyxl",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "office.excel_creator"
+  },
+  {
+    "name": "pdf_summarizer",
+    "category": "pdf",
+    "file_path": "pdf/pdf_summarizer.py",
+    "description": "PDF summarizer CLI (OpenAI or Hugging Face) with extraction and logging.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "openai",
+      "transformers",
+      "PDF libraries"
+    ],
+    "module_path": "pdf.pdf_summarizer"
+  },
+  {
+    "name": "pdf_text",
+    "category": "pdf",
+    "file_path": "pdf/pdf_text.py",
+    "description": "PDF text extractor CLI with logging, page selection, and output options.\n\nTries `pdfplumber` first; falls back to `PyPDF2` if unavailable.\nInstall with:\n  pip install pdfplumber PyPDF2",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "PDF libraries"
+    ],
+    "module_path": "pdf.pdf_text"
+  },
+  {
+    "name": "pdf_toolbox",
+    "category": "pdf",
+    "file_path": "pdf/pdf_toolbox.py",
+    "description": "PDF toolbox CLI (merge, split, extract, rotate, encrypt, decrypt) using PyPDF2.\n\nExamples:\n- Merge:\n  python pdf_toolbox.py merge out.pdf in1.pdf in2.pdf\n\n- Split into ranges (1-based; open-ended allowed):\n  python pdf_toolbox.py split input.pdf --ranges 1-3,7,10- --out-dir parts/\n\n- Extract pages to a single file:\n  python pdf_toolbox.py extract input.pdf --ranges 5-8 -o excerpt.pdf\n\n- Rotate pages 1,2 by 90 degrees to new file:\n  python pdf_toolbox.py rotate input.pdf --pages 1,2 --angle 90 -o rotated.pdf\n\n- Encrypt with user password:\n  python pdf_toolbox.py encrypt input.pdf --password secret -o secured.pdf\n\n- Decrypt with password:\n  python pdf_toolbox.py decrypt secured.pdf --password secret -o plain.pdf",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "PDF libraries"
+    ],
+    "module_path": "pdf.pdf_toolbox"
+  },
+  {
+    "name": "qrcode_generator",
+    "category": "qr",
+    "file_path": "qr/qrcode_generator.py",
+    "description": "QR code generator CLI with error correction, size, colors, and logging.\n\nRequires `qrcode[pil]` (installs Pillow backend). Example:\n  pip install qrcode[pil]",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "qr.qrcode_generator"
+  },
+  {
+    "name": "screenshot_texter",
+    "category": "screenshots",
+    "file_path": "screenshots/screenshot_texter.py",
+    "description": "Screenshot Texter",
+    "commands": [],
+    "dependencies": [
+      "Pillow"
+    ],
+    "module_path": "screenshots.screenshot_texter"
+  },
+  {
+    "name": "proofreader",
+    "category": "text_nlp",
+    "file_path": "text_nlp/proofreader.py",
+    "description": "Proofreader CLI using gingerit with optional Streamlit UI.\n\nInstall: pip install gingerit streamlit",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "text_nlp.proofreader"
+  },
+  {
+    "name": "blobbing",
+    "category": "text_nlp",
+    "file_path": "text_nlp/blobbing.py",
+    "description": "Sentiment analysis utility using TextBlob.\n\nProvides a simple CLI to analyze sentiment from a string, a file, or stdin.\n\nExamples:\n  - Analyze a short text:\n    python blobbing.py --text \"Python is amazing!\"\n\n  - Analyze content from a file:\n    python blobbing.py --file notes.txt\n\n  - Pipe text via stdin:\n    echo \"I love this\" | python blobbing.py",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "text_nlp.blobbing"
+  },
+  {
+    "name": "markdown_converter",
+    "category": "text_nlp",
+    "file_path": "text_nlp/markdown_converter.py",
+    "description": "Markdown converter CLI using markdown + pdfkit/weasyprint fallbacks.\n\nInstall: pip install markdown pdfkit weasyprint",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "text_nlp.markdown_converter"
+  },
+  {
+    "name": "blobbing_more",
+    "category": "text_nlp",
+    "file_path": "text_nlp/blobbing_more.py",
+    "description": "Sentiment analysis with Hugging Face Transformers pipeline.\n\nCLI supports analyzing a single text, reading from a file, or stdin, with\noptional batch mode and JSON output. Model and device are configurable.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "transformers"
+    ],
+    "module_path": "text_nlp.blobbing_more"
+  },
+  {
+    "name": "openai_api",
+    "category": "text_nlp",
+    "file_path": "text_nlp/openai_api.py",
+    "description": "OpenAI API CLI: chat or completion with env/flag API key and logging.\n\nSupports reading prompt from --prompt, --file, or stdin. Tries the modern\nclient API; falls back to legacy if needed.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "openai"
+    ],
+    "module_path": "text_nlp.openai_api"
+  },
+  {
+    "name": "collections_helpers",
+    "category": "text_nlp",
+    "file_path": "text_nlp/collections_helpers.py",
+    "description": "Collection helpers: tokenization and word counting utilities with CLI.\n\nProvides reusable functions and an optional CLI for quick word counts.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "text_nlp.collections_helpers"
+  },
+  {
+    "name": "summarizer",
+    "category": "text_nlp",
+    "file_path": "text_nlp/summarizer.py",
+    "description": "Text summarizer CLI using TheTextAPI with optional HF fallback and logging.\n\nInstall: pip install requests transformers",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "transformers"
+    ],
+    "module_path": "text_nlp.summarizer"
+  },
+  {
+    "name": "video_toolbox",
+    "category": "video",
+    "file_path": "video/video_toolbox.py",
+    "description": "Video processing toolbox CLI.\n\nThis script bundles a few common video helpers behind a single typed CLI.\nIt supports multiple backends (``moviepy`` and ``ffmpeg-python``) and keeps\nimports optional so the toolbox works even if you only install one of them.\n\nExamples\n--------\nTrim 5 seconds from a clip::\n\n    python -m video.video_toolbox trim input.mp4 output.mp4 --start 00:00:10 --duration 5\n\nConvert part of a clip to a GIF::\n\n    python -m video.video_toolbox to-gif demo.mov demo.gif --start 2 --end 8 --fps 12\n\nExtract one frame per second::\n\n    python -m video.video_toolbox extract-frames clip.mp4 ./frames --fps 1",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": "Entry point for the CLI.",
+        "args": [
+          {
+            "name": "argv",
+            "type": "Optional[Sequence[str]]"
+          }
+        ]
+      }
+    ],
+    "dependencies": [
+      "moviepy"
+    ],
+    "module_path": "video.video_toolbox"
+  },
+  {
+    "name": "wikifacts",
+    "category": "web",
+    "file_path": "web/wikifacts.py",
+    "description": "Wikipedia facts CLI with logging and safe fetching.\n\nUses the `wikipedia` package if available; falls back to pywhatkit.info.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "web.wikifacts"
+  },
+  {
+    "name": "web_summarizer",
+    "category": "web",
+    "file_path": "web/web_summarizer.py",
+    "description": "Web page summarizer CLI with logging and backend options.\n\nFetches a URL, extracts text, optionally truncates, and summarizes using\nHugging Face pipeline or TheTextAPI fallback.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "transformers"
+    ],
+    "module_path": "web.web_summarizer"
+  },
+  {
+    "name": "link_preview",
+    "category": "web",
+    "file_path": "web/link_preview.py",
+    "description": "Link preview generator: extract OpenGraph/Twitter meta and basics.\n\nUsage:\n  python -m web.link_preview https://example.com --json out.json --download-image --out-card preview.png",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [
+      "Pillow"
+    ],
+    "module_path": "web.link_preview"
+  },
+  {
+    "name": "google_search",
+    "category": "web",
+    "file_path": "web/google_search.py",
+    "description": "Simple Google search CLI with logging and fallback.\n\nTries `pywhatkit.search` if available; falls back to opening the browser\nwith a constructed Google query URL.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "web.google_search"
+  },
+  {
+    "name": "url_status_checker",
+    "category": "web",
+    "file_path": "web/url_status_checker.py",
+    "description": "Concurrent HTTP status checker for URLs.\n\nUsage examples:\n  python -m web.url_status_checker https://example.com https://httpbin.org/status/404\n  echo \"https://example.com\" | python -m web.url_status_checker --stdin --json",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": [
+          {
+            "name": "argv",
+            "type": "Optional[List[str]]"
+          }
+        ]
+      }
+    ],
+    "dependencies": [],
+    "module_path": "web.url_status_checker"
+  },
+  {
+    "name": "mail_sender",
+    "category": "misc",
+    "file_path": "mail_sender.py",
+    "description": "SMTP mail sender CLI with SSL/STARTTLS, env credentials, and logging.\n\nUsage examples:\n  - Send a simple message (credentials from env MAIL_USERNAME/MAIL_PASSWORD):\n    python mail_sender.py --server smtp.example.com --port 465 --ssl       --from you@example.com --to them@example.com       --subject \"Hello\" --text \"Hi there!\"\n\n  - Read body from file:\n    python mail_sender.py --server smtp.example.com --port 587 --starttls       --from you@example.com --to a@x.com b@y.com --subject \"Report\"       --text-file body.txt --username $USER --password $PASS",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "misc.mail_sender"
+  },
+  {
+    "name": "flashtext_test",
+    "category": "misc",
+    "file_path": "flashtext_test.py",
+    "description": "Benchmark regex vs FlashText keyword replacements with a simple CLI.\n\nAccepts input from a file or stdin, and keywords via JSON mapping or file.\nOutputs optional replaced texts and prints timing metrics.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "misc.flashtext_test"
+  },
+  {
+    "name": "cli_builder",
+    "category": "misc",
+    "file_path": "cli_builder.py",
+    "description": "Minimal CLI builder using Typer with logging and typed options.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": "Global options for the CLI.",
+        "args": [
+          {
+            "name": "log_level",
+            "type": "str"
+          }
+        ]
+      },
+      {
+        "name": "greet",
+        "docstring": "Greet a person with optional transformations.",
+        "args": [
+          {
+            "name": "name",
+            "type": "str"
+          },
+          {
+            "name": "shout",
+            "type": "bool"
+          },
+          {
+            "name": "repeat",
+            "type": "int"
+          },
+          {
+            "name": "punctuation",
+            "type": "Optional[str]"
+          }
+        ]
+      }
+    ],
+    "dependencies": [
+      "typer"
+    ],
+    "module_path": "misc.cli_builder"
+  },
+  {
+    "name": "email_report",
+    "category": "misc",
+    "file_path": "email_report.py",
+    "description": "Email Report",
+    "commands": [],
+    "dependencies": [],
+    "module_path": "misc.email_report"
+  },
+  {
+    "name": "scheduler",
+    "category": "misc",
+    "file_path": "scheduler.py",
+    "description": "Scheduler",
+    "commands": [],
+    "dependencies": [],
+    "module_path": "misc.scheduler"
+  },
+  {
+    "name": "classcreator",
+    "category": "misc",
+    "file_path": "classcreator.py",
+    "description": "Product inventory management utility with a typed `Product` dataclass.\n\nScenario: Manage simple product stock with validation, logging, and a CLI.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "misc.classcreator"
+  },
+  {
+    "name": "search_notes",
+    "category": "misc",
+    "file_path": "search_notes.py",
+    "description": "Search Notes",
+    "commands": [],
+    "dependencies": [
+      "transformers"
+    ],
+    "module_path": "misc.search_notes"
+  },
+  {
+    "name": "password_generator",
+    "category": "misc",
+    "file_path": "password_generator.py",
+    "description": "Secure password generator CLI with character set controls and logging.\n\nGenerates cryptographically secure passwords using `secrets` with options to\ninclude/exclude character classes, avoid ambiguous characters, and require at\nleast one character from each selected class.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "misc.password_generator"
+  }
+]
