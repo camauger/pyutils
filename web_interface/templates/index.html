@@ -718,8 +718,11 @@
                 card.classList.add('favorited');
             }
 
-            const description = tool.description || 'No description available';
-            const shortDesc = description.length > 150 ? description.substring(0, 150) + '...' : description;
+            // Use short_description if available, otherwise truncate description
+            const shortDesc = tool.short_description ||
+                (tool.description && tool.description.length > 100
+                    ? tool.description.substring(0, 100) + '...'
+                    : tool.description || 'No description available');
 
             const tags = customTags[tool.name] || [];
 
@@ -791,7 +794,7 @@
 
                     <div class="modal-section">
                         <h3>Description</h3>
-                        <p>${escapeHtml(detailData.description || 'No description available')}</p>
+                        <p>${escapeHtml(detailData.long_description || detailData.description || 'No description available')}</p>
                     </div>
 
                     ${detailData.commands && detailData.commands.length > 0 ? `
