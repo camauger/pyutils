@@ -63,6 +63,14 @@ web = [
 ui = [
   "streamlit>=1.36.0",
 ]
+dev = [
+  "pytest>=8.0.0",
+  "pytest-cov>=4.1.0",
+  "ruff>=0.6.0",
+  "black>=24.0.0",
+  "mypy>=1.11.0",
+  "pre-commit>=3.5.0",
+]
 
 [project.scripts]
 # Map some scripts to console commands (installable entry points)
@@ -103,7 +111,40 @@ exif-manager = "images.exif_manager:main"
 photo-organizer = "images.photo_organizer:main"
 image-compare = "images.image_compare:main"
 image-contact-sheet = "images.image_contact_sheet:main"
+duplicate-finder = "files.duplicate_finder:main"
+csv-tools = "data.csv_tools:main"
+api-tester = "web.api_tester:main"
+json-tools = "data.json_tools:main"
 
 [tool.setuptools]
 # Include all .py files by default
 py-modules = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--verbose --strict-markers"
+
+[tool.ruff]
+target-version = "py39"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "N", "UP", "B", "C4", "SIM", "PTH"]
+ignore = ["E501", "B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.black]
+line-length = 100
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true

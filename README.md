@@ -19,6 +19,117 @@ For Markdown conversion install `markdown` and either `pdfkit` (requires wkhtmlt
 
 Install only what you need. Video helpers also expect an `ffmpeg` binary on your PATH.
 
+### Development Setup
+
+For contributing or running tests:
+
+```bash
+# Install development dependencies
+pip install -e .[dev]
+
+# Run tests
+pytest
+
+# Run linters
+ruff check .
+black --check .
+
+# Auto-format code
+black .
+
+# Install pre-commit hooks
+pre-commit install
+```
+
+### New Tools (Phase 1)
+
+#### duplicate-finder - Find and manage duplicate files
+
+Find duplicate files by content hash with various management options:
+
+```bash
+# Find duplicates in a directory
+duplicate-finder /path/to/scan --recursive
+
+# Interactive mode to choose which files to keep
+duplicate-finder /path/to/scan --interactive
+
+# Auto-delete duplicates, keeping the newest file
+duplicate-finder /path/to/scan --action delete --keep newest
+
+# Generate JSON report
+duplicate-finder /path/to/scan --json --output duplicates.json
+
+# Dry-run to preview changes
+duplicate-finder /path/to/scan --action delete --dry-run
+```
+
+#### csv-tools - CSV processing without pandas
+
+Process CSV files with filtering, selection, merging, and conversion:
+
+```bash
+# Filter rows by criteria
+csv-tools filter data.csv --column age --op gt --value 25
+
+# Select specific columns
+csv-tools select data.csv --columns name,email,age --output subset.csv
+
+# Merge multiple CSV files
+csv-tools merge file1.csv file2.csv --output combined.csv
+
+# Get statistics
+csv-tools stats data.csv
+
+# Convert to JSON
+csv-tools to-json data.csv --output data.json
+
+# Convert to Markdown table
+csv-tools to-markdown data.csv
+```
+
+#### api-tester - Test REST APIs
+
+Test HTTP endpoints with authentication and batch testing:
+
+```bash
+# Simple GET request
+api-tester GET https://api.example.com/users
+
+# POST with JSON data
+api-tester POST https://api.example.com/users --data '{"name":"John","age":30}'
+
+# With Bearer authentication
+api-tester GET https://api.example.com/protected --auth-type bearer --auth-value YOUR_TOKEN
+
+# Custom headers
+api-tester GET https://api.example.com/data --header "X-API-Key: secret"
+
+# Batch testing from config file
+api-tester --config api-tests.json
+```
+
+#### json-tools - JSON processing and querying
+
+Query, transform, and convert JSON files:
+
+```bash
+# Query JSON with path
+json-tools query data.json "users.0.name"
+
+# Pretty print JSON
+json-tools pretty data.json --indent 4
+
+# Merge multiple JSON files
+json-tools merge file1.json file2.json --output combined.json
+
+# Flatten nested JSON
+json-tools flatten nested.json
+
+# Convert to YAML (requires PyYAML)
+json-tools to-yaml data.json --output data.yaml
+```
+
 ### Web Interface
 
 Browse and search all your tools with the built-in web interface:
