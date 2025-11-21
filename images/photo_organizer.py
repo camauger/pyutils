@@ -200,7 +200,7 @@ def get_photo_datetime(path: Path, order: List[str]) -> datetime:
     return datetime.fromtimestamp(path.stat().st_mtime)
 
 
-def build_structure(dt: datetime, structure: string) -> str:  # type: ignore[name-defined]
+def build_structure(dt: datetime, structure: str) -> str:
     # tokens yyyy mm dd
     mapping = {
         "yyyy": dt.strftime("%Y"),

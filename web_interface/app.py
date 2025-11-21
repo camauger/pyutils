@@ -19,6 +19,27 @@ logger = logging.getLogger(__name__)
 ROOT_DIR = Path(__file__).parent.parent
 INDEX_FILE = Path(__file__).parent / 'tool_index.json'
 
+# Whitelist of allowed modules for execution
+ALLOWED_MODULES = {
+    'audio.audio_speaker', 'audio.voice_todo',
+    'data.faker_generator',
+    'files.clipboard_history', 'files.context_manager', 'files.file_hasher',
+    'files.pathfinder', 'files.rename_files',
+    'images.content_aware_resize', 'images.exif_manager', 'images.handwriter',
+    'images.image_compare', 'images.image_contact_sheet', 'images.image_deduper',
+    'images.image_heic_converter', 'images.image_resizer', 'images.photo_editor',
+    'images.photo_organizer', 'images.remove_background', 'images.watermarker',
+    'office.docx_creator', 'office.excel_creator',
+    'pdf.pdf_summarizer', 'pdf.pdf_text', 'pdf.pdf_toolbox',
+    'qr.qrcode_generator',
+    'text_nlp.blobbing', 'text_nlp.blobbing_more', 'text_nlp.collections_helpers',
+    'text_nlp.markdown_converter', 'text_nlp.openai_api', 'text_nlp.proofreader',
+    'text_nlp.summarizer',
+    'video.video_toolbox',
+    'web.google_search', 'web.link_preview', 'web.url_status_checker',
+    'web.web_summarizer', 'web.wikifacts',
+}
+
 # Load or create tool index
 tools_data = []
 
@@ -183,6 +204,9 @@ def execute_tool():
 
         if not module_path:
             return jsonify({'error': 'Module path required', 'success': False}), 400
+
+        if module_path not in ALLOWED_MODULES:
+            return jsonify({'error': 'Invalid or unauthorized module', 'success': False}), 403
 
         # Build the command
         cmd = ['python', '-m', module_path]
