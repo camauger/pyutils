@@ -25,6 +25,9 @@ dependencies = [
   "requests>=2.32.0",
   "beautifulsoup4>=4.12.2",
   "Pillow>=10.2.0",
+  "python-dotenv>=1.0.0",
+  "pytesseract>=0.3.10",
+  "sentence-transformers>=2.2.2,<3.0.0",
 ]
 
 [project.optional-dependencies]
@@ -115,6 +118,7 @@ duplicate-finder = "files.duplicate_finder:main"
 csv-tools = "data.csv_tools:main"
 api-tester = "web.api_tester:main"
 json-tools = "data.json_tools:main"
+tool-creator = "tool_creator:main"
 
 [tool.setuptools]
 # Include all .py files by default
