@@ -186,7 +186,7 @@ def render_card(meta: LinkPreview, out_path: Path, timeout: int) -> None:
 
         overlay_h = 120
         draw = ImageDraw.Draw(bg)
-        draw.rectangle([(0, height - overlay_h), (width, height)], fill=(0, 0, 0, 200))
+        draw.rectangle(((0, height - overlay_h), (width, height)), fill=(0, 0, 0, 200))
         title = (meta.title or urlparse(meta.url).netloc)[:120]
         desc = (meta.description or "")[:180]
         font = ImageFont.load_default()

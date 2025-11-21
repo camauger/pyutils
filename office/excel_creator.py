@@ -22,7 +22,7 @@ class ExcelError(RuntimeError):
     """Raised when Excel operations fail."""
 
 
-def load_workbook(path: Path, sheet_name: str) -> Tuple[pd.DataFrame, List[str]]:
+def load_workbook(path: Path, sheet_name: str) -> Tuple[pd.DataFrame, list[int | str]]:
     """Load a sheet into a DataFrame and return (df, sheet_names)."""
     try:
         xls = pd.ExcelFile(path)
@@ -134,7 +134,7 @@ def main() -> int:
         return 2
 
     if args.show:
-        logger.info(f"Available sheets: {', '.join(sheet_names)}")
+        logger.info(f"Available sheets: {', '.join(str(s) for s in sheet_names)}")
         logger.info(f"Shape: {df.shape[0]} rows x {df.shape[1]} cols")
         logger.info(f"Columns: {list(df.columns)}")
         print(df)

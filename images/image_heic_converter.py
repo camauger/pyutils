@@ -24,7 +24,7 @@ import os
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, Iterator, List, Optional, Tuple, cast
+from typing import Any, Iterable, Iterator, List, Optional, Tuple, cast
 
 # Register HEIF with Pillow
 try:
@@ -190,7 +190,7 @@ def convert_one(
         if auto_orient:
             im = cast(Image.Image, ImageOps.exif_transpose(im) or im)
         im = resize_to_bounds(cast(Image.Image, im), max_w, max_h)
-        save_kwargs: dict[str, object] = {}
+        save_kwargs: dict[str, Any] = {}
         fmt = out_format.upper()
         if fmt in {"JPEG", "WEBP"}:
             save_kwargs["quality"] = max(1, min(100, quality))
