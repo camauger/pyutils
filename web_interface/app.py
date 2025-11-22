@@ -2,13 +2,11 @@
 
 import json
 import logging
-import os
 import shlex
 import subprocess
 from pathlib import Path
-from typing import Dict, List
 
-from flask import Flask, jsonify, render_template, request, send_from_directory
+from flask import Flask, jsonify, render_template, request
 from tool_indexer import ToolIndexer
 
 app = Flask(__name__)
@@ -59,6 +57,11 @@ ALLOWED_MODULES = {
     "web.url_status_checker",
     "web.web_summarizer",
     "web.wikifacts",
+    "ttrpg.content_generator",
+    "ttrpg.dice_roller",
+    "ttrpg.name_generator",
+    "ttrpg.npc_generator",
+    "ttrpg.random_table",
 }
 
 # Load or create tool index
@@ -75,7 +78,7 @@ def load_tools_index():
         indexer.index_all_tools()
         indexer.save_index()
 
-    with open(INDEX_FILE, "r", encoding="utf-8") as f:
+    with INDEX_FILE.open(encoding="utf-8") as f:
         tools_data = json.load(f)
 
     logger.info(f"Loaded {len(tools_data)} tools")
@@ -128,7 +131,7 @@ def get_tool_detail(category, tool_name):
     tool_file = ROOT_DIR / tool["file_path"]
     source_code = ""
     if tool_file.exists():
-        with open(tool_file, "r", encoding="utf-8") as f:
+        with tool_file.open(encoding="utf-8") as f:
             source_code = f.read()
 
     # Try to find examples from README
@@ -137,20 +140,20 @@ def get_tool_detail(category, tool_name):
     return jsonify({**tool, "source_code": source_code, "examples": examples})
 
 
-def extract_examples_for_tool(tool_name: str) -> List[str]:
+def extract_examples_for_tool(tool_name: str) -> list[str]:
     """Extract usage examples for a tool from README."""
     readme_path = ROOT_DIR / "README.md"
     if not readme_path.exists():
         return []
 
-    examples = []
+    examples: list[str] = []
     try:
-        with open(readme_path, "r", encoding="utf-8") as f:
+        with readme_path.open(encoding="utf-8") as f:
             content = f.read()
 
         # Look for code blocks that mention the tool
         in_code_block = False
-        current_block = []
+        current_block: list[str] = []
 
         for line in content.split("\n"):
             if line.startswith("```"):
@@ -185,7 +188,7 @@ def get_stats():
     """Get overall statistics."""
     stats = {
         "total_tools": len(tools_data),
-        "categories": len(set(t["category"] for t in tools_data)),
+        "categories": len({t["category"] for t in tools_data}),
         "category_breakdown": {},
     }
 
@@ -288,7 +291,7 @@ if __name__ == "__main__":
     print("🔧 PyUtils Tool Browser")
     print("=" * 60)
     print(f"📊 Loaded {len(tools_data)} tools")
-    print(f"🌐 Starting server at http://localhost:5000")
+    print("🌐 Starting server at http://localhost:5000")
     print("=" * 60 + "\n")
 
     app.run(debug=True, host="0.0.0.0", port=5000)

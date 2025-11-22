@@ -562,7 +562,18 @@
     "description": "Screenshot Texter",
     "short_description": "Process screenshot texter",
     "long_description": "Process screenshot texter. Includes image processing capabilities.",
-    "commands": [],
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": [
+          {
+            "name": "image_path",
+            "type": "str"
+          }
+        ]
+      }
+    ],
     "dependencies": [
       "Pillow"
     ],
@@ -692,6 +703,91 @@
       "transformers"
     ],
     "module_path": "text_nlp.summarizer"
+  },
+  {
+    "name": "content_generator",
+    "category": "ttrpg",
+    "file_path": "ttrpg\\content_generator.py",
+    "description": "Procedural content generator for TTRPG adventures.\n\nGenerate quests, locations, encounters, plot hooks, and other\nadventure content using templates and random elements.",
+    "short_description": "Procedural content generator for TTRPG adventures",
+    "long_description": "Procedural content generator for TTRPG adventures. Generate quests, locations, encounters, plot hooks, and other adventure content using templates and random elements.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "ttrpg.content_generator"
+  },
+  {
+    "name": "dice_roller",
+    "category": "ttrpg",
+    "file_path": "ttrpg\\dice_roller.py",
+    "description": "Dice roller with standard RPG notation support.\n\nSupports standard dice notation (d20, 3d6+2), advantage/disadvantage,\nkeep highest/lowest, and multiple rolls with detailed output.",
+    "short_description": "Dice roller with standard RPG notation support",
+    "long_description": "Dice roller with standard RPG notation support. Supports standard dice notation (d20, 3d6+2), advantage/disadvantage, keep highest/lowest, and multiple rolls with detailed output.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "ttrpg.dice_roller"
+  },
+  {
+    "name": "name_generator",
+    "category": "ttrpg",
+    "file_path": "ttrpg\\name_generator.py",
+    "description": "Fantasy name generator for NPCs, places, and items.\n\nGenerates names using syllable patterns and Markov chains for various\nfantasy races, locations, and magical items.",
+    "short_description": "Fantasy name generator for NPCs, places, and items",
+    "long_description": "Fantasy name generator for NPCs, places, and items. Generates names using syllable patterns and Markov chains for various fantasy races, locations, and magical items.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "ttrpg.name_generator"
+  },
+  {
+    "name": "npc_generator",
+    "category": "ttrpg",
+    "file_path": "ttrpg\\npc_generator.py",
+    "description": "NPC (Non-Player Character) generator with stat blocks.\n\nGenerate complete NPCs with stats, personality, equipment, and background.\nSupports D&D 5e-style stat blocks with Markdown and JSON output.",
+    "short_description": "NPC (Non-Player Character) generator with stat blocks",
+    "long_description": "NPC (Non-Player Character) generator with stat blocks. Generate complete NPCs with stats, personality, equipment, and background. Supports D&D 5e-style stat blocks with Markdown and JSON output.",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "ttrpg.npc_generator"
+  },
+  {
+    "name": "random_table",
+    "category": "ttrpg",
+    "file_path": "ttrpg\\random_table.py",
+    "description": "Random table processor for TTRPG random encounters and events.\n\nLoad and roll on random tables from JSON/CSV, supporting weighted\nentries, nested tables, and multiple roll formats (d100, d20, etc.).",
+    "short_description": "Random table processor for TTRPG random encounters and events",
+    "long_description": "Random table processor for TTRPG random encounters and events. Load and roll on random tables from JSON/CSV, supporting weighted entries, nested tables, and multiple roll formats (d100, d20, etc.).",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": null,
+        "args": []
+      }
+    ],
+    "dependencies": [],
+    "module_path": "ttrpg.random_table"
   },
   {
     "name": "video_toolbox",
@@ -965,16 +1061,20 @@
     "module_path": "misc.scheduler"
   },
   {
-    "name": "search_notes",
+    "name": "tool_creator",
     "category": "misc",
-    "file_path": "search_notes.py",
-    "description": "Search Notes",
-    "short_description": "Transform search notes",
-    "long_description": "Transform search notes. Search notes utility for misc operations.",
-    "commands": [],
-    "dependencies": [
-      "transformers"
+    "file_path": "tool_creator.py",
+    "description": "Tool creator CLI - Generate new pyutils tools with proper structure.\n\nThis script helps create new tools following pyutils conventions:\n- Proper module structure with docstrings\n- Type hints and error handling\n- Argparse CLI setup\n- Logging configuration\n- Automatic addition to pyproject.toml\n- Optional test file generation",
+    "short_description": "Tool creator CLI - Generate new pyutils tools with proper structure",
+    "long_description": "Tool creator CLI - Generate new pyutils tools with proper structure. This script helps create new tools following pyutils conventions:",
+    "commands": [
+      {
+        "name": "main",
+        "docstring": "Main entry point.",
+        "args": []
+      }
     ],
-    "module_path": "misc.search_notes"
+    "dependencies": [],
+    "module_path": "misc.tool_creator"
   }
 ]

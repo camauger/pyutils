@@ -23,6 +23,7 @@ class ToolIndexer:
         "qr",
         "screenshots",
         "text_nlp",
+        "ttrpg",
         "video",
         "web",
     ]
