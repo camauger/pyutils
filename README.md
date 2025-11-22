@@ -154,6 +154,127 @@ See `web_interface/README.md` for more details.
 - Most CLIs support `--log-level`: CRITICAL, ERROR, WARNING, INFO, DEBUG.
 - Many support input via flags, files, or stdin.
 
+### TTRPG Tools
+
+A comprehensive suite of tools for tabletop role-playing game designers and game masters.
+
+#### dice_roller.py - Dice rolling with RPG notation
+
+Roll dice using standard RPG notation with support for advantage/disadvantage and keep mechanics:
+
+```bash
+# Basic rolls
+python -m ttrpg.dice_roller d20
+python -m ttrpg.dice_roller 3d6+2
+
+# Keep mechanics (4d6, keep highest 3)
+python -m ttrpg.dice_roller 4d6k3
+
+# D&D 5e advantage/disadvantage
+python -m ttrpg.dice_roller d20 --advantage
+python -m ttrpg.dice_roller d20 --disadvantage
+
+# Multiple rolls with statistics
+python -m ttrpg.dice_roller 3d6 --repeat 10 --verbose
+
+# JSON output
+python -m ttrpg.dice_roller 2d10+5 --json
+```
+
+#### name_generator.py - Fantasy name generation
+
+Generate character names, place names, and magical item names:
+
+```bash
+# Character names by race
+python -m ttrpg.name_generator character --race human --gender male
+python -m ttrpg.name_generator character --race elf --surname --num 5
+
+# Place names
+python -m ttrpg.name_generator place --num 10
+
+# Magical item names
+python -m ttrpg.name_generator item --magical --num 3
+
+# JSON output
+python -m ttrpg.name_generator character --race dwarf --json
+```
+
+Supported races: human, elf, dwarf, halfling, orc
+
+#### random_table.py - Random table processor
+
+Load and roll on random encounter and event tables:
+
+```bash
+# Roll on a JSON table
+python -m ttrpg.random_table encounters.json
+
+# Roll multiple times
+python -m ttrpg.random_table encounters.json --repeat 5
+
+# Create example tables
+python -m ttrpg.random_table --example d100 --output encounters.json
+python -m ttrpg.random_table --example weighted --output loot.json
+
+# Load from CSV
+python -m ttrpg.random_table table.csv --csv --dice d20
+
+# JSON output
+python -m ttrpg.random_table encounters.json --json
+```
+
+Supports d100, d20, d6 tables and weighted random selection.
+
+#### npc_generator.py - NPC stat block generator
+
+Generate complete D&D 5e-style NPC stat blocks:
+
+```bash
+# Generate NPC with specific class
+python -m ttrpg.npc_generator --class Fighter --level 5
+
+# Generate high-level elf wizard
+python -m ttrpg.npc_generator --race elf --class Wizard --level 10
+
+# Multiple NPCs with Markdown output
+python -m ttrpg.npc_generator --num 3 --markdown --output npcs.md
+
+# JSON output for integration
+python -m ttrpg.npc_generator --json
+
+# Use standard array for ability scores
+python -m ttrpg.npc_generator --method array --level 8
+```
+
+Includes personality traits, equipment, and complete stat blocks.
+
+#### content_generator.py - Procedural adventure content
+
+Generate quests, locations, encounters, and plot hooks:
+
+```bash
+# Generate a quest
+python -m ttrpg.content_generator quest --markdown
+
+# Generate taverns/inns
+python -m ttrpg.content_generator tavern --num 3
+
+# Generate dungeons
+python -m ttrpg.content_generator dungeon --markdown --output dungeon.md
+
+# Generate villages
+python -m ttrpg.content_generator village --json
+
+# Generate encounters by CR
+python -m ttrpg.content_generator encounter --cr 5
+
+# Generate plot hooks
+python -m ttrpg.content_generator plot-hook --num 10
+```
+
+Content types: quest, tavern, dungeon, village, encounter, plot-hook
+
 ### Scripts overview
 
 - audio_speaker.py: Text-to-speech from text/file/stdin with logging and fallback.
